@@ -1,15 +1,10 @@
 
-import express from 'express';
-
-const getContactPage = (req, res) => {
-    return res.render("contact", { 
-        data: { 
-            title: 'Contact Us', 
-            page: "contact", 
-            content: 'Contract' 
-        } 
-    });
-};
-
-export default getContactPage;
-
+import express from "express"
+const getContact = (req, res) => {
+    return res.render("home", { data: { title: 'Page Contact',
+        page:'contact', 
+        name: 'Nguyễn Khắc Đăng', 
+        email: 'nkdang2101384@gmail.com',
+        phonenumber: '1234567890' } })
+}
+export default getContactd

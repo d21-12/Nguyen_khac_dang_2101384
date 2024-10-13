@@ -1,16 +1,17 @@
-import http from 'http';
-import { getPath, getParamsURL } from './getURL.js';
-import getDate from './date.js';
-import initWebRoute from './route/webRoute.js'
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });
-    res.write(`${getDate()}<br>`);
-    res.write(`${getPath(req)}<br>`);
-    res.write(`${getParamsURL(req)}<br>`);
-    res.write('hello ktpm0121, chúc bạn thành công với Nodejs');
-    res.end();
-});
+import dotenv from 'dotenv'
+import express from 'express'
+// const express = require('express')
+const app = express()
+// const port = 3000
+dotenv.config()
+const port = process.env.PORT
 
-server.listen(8080, () => {
-    console.log('Server is running on port 8080');
-});
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+app.get('/test2', (req, res) => {
+    res.send('Hello World 22!')
+  })
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})

@@ -1,22 +1,40 @@
 import express from 'express'
-import getHomePage from '../Controller/HomeController'
-import aboutPage from '../Controller/AboutController'
-import getContactPage from '../Controllers/ContactController'; 
+import { default as date } from '../date'; 
+import getURL_ES6 from '../getURL_ES6';
+import aboutPage from '../controller/AboutController'
+import getHomePage from '../controller/HomeController'
+import getContact from '../controller/ContactController'
+import { getAllUser } from '../controller/UserController'; 
+import { viewUser } from '../controller/UserController'; 
+import { deleteUser } from '../controller/UserController'; 
+import { editUser } from '../controller/UserController'; 
+import { updateUser } from '../controller/UserController'; 
+import { createUser } from '../controller/UserController'; 
+import { insertUser } from '../controller/UserController'; 
 const router = express.Router()
 const initWebRoute = (app) => {
     router.get('/', getHomePage)
-    router.get('/about', aboutPage)
-    router.get('/contact', getContactPage);
+    router.get('/about', aboutPage);  // Gọi controller xử lý route
+    router.get('/contact', getContact);  
+    router.get('/getuser', getAllUser); 
+    router.get('/deltauser/:id', viewUser); 
+    router.post('/deleteuser/', deleteUser) 
+    router.get('/edituser/:id', editUser); 
+    router.post('/edituser/', updateUser) 
+    router.get('/createnewuser/', createUser);
+    router.post('/createnewuser/', insertUser) 
     router.get('/date', (req, res) => {
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-        res.write(getCurrentDate() + "<br/>");
-        res.end();
+        res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' });
+        res.send(`${date()}`);
     });
     router.get('/geturl', (req, res) => {
-        const path = getPath(req);
-        const params = getParamsURL(req);
-        res.send(`Path: ${path} <br/> Params: ${params}`);
+        res.status(200).set({ 'Content-Type': 'text/html; charset=utf-8' });
+        res.write(`${getURL_ES6.getPath(req)}<br/>`);
+        res.write(`${getURL_ES6.getParamesURL(req)}<br/>`);
     });
+
     return app.use('/', router)
 }
 export default initWebRoute
+
+
